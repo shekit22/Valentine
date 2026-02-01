@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valentine 💖</title>
+
+<!-- Confetti Library -->
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+  overflow: hidden;
+}
+
+.box {
+  background: white;
+  padding: 25px;
+  border-radius: 20px;
+  text-align: center;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+h1 {
+  font-size: 24px;
+}
+
+.buttons {
+  position: relative;
+  height: 60px;
+  margin-top: 20px;
+}
+
+button {
+  padding: 12px 20px;
+  font-size: 18px;
+  border-radius: 25px;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+}
+
+#yes {
+  left: 30px;
+  background: #ff4d6d;
+  color: white;
+}
+
+#no {
+  right: 30px;
+  background: #ccc;
+}
+
+#message {
+  display: none;
+  margin-top: 20px;
+  font-size: 22px;
+  color: #ff2f68;
+  font-weight: bold;
+}
+
+#meme {
+  display: none;
+  margin-top: 15px;
+  width: 100%;
+  border-radius: 15px;
+}
+</style>
+</head>
+
+<body onclick="playMusic()">
+
+<audio id="music" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<div class="box">
+  <h1>Will you be my Valentine? 💖</h1>
+
+  <div class="buttons">
+    <button id="yes" onclick="yesClick()">YES 💘</button>
+    <button id="no" onmouseover="moveNo()">NO 😒</button>
+  </div>
+
+  <div id="message">🥹💞 YAYYY!!! Best decision EVER 💞🥹</div>
+  <img id="meme" src="meme.jpg" alt="meme">
+</div>
+
+<script>
+function moveNo() {
+  const btn = document.getElementById("no");
+  const x = Math.random() * 200 - 100;
+  const y = Math.random() * 200 - 100;
+  btn.style.transform = `translate(${x}px, ${y}px)`;
+}
+
+function yesClick() {
+  document.getElementById("message").style.display = "block";
+  document.getElementById("meme").style.display = "block";
+  confettiBlast();
+}
+
+function playMusic() {
+  document.getElementById("music").play();
+}
+
+function confettiBlast() {
+  const duration = 2000;
+  const end = Date.now() + duration;
+
+  (function frame() {
+    confetti({ particleCount: 8, angle: 60, spread: 70, origin: { x: 0 }});
+    confetti({ particleCount: 8, angle: 120, spread: 70, origin: { x: 1 }});
+    confetti({ particleCount: 8, angle: 90, spread: 70, origin: { x: 0.5, y: 0 }});
+    confetti({ particleCount: 8, angle: 90, spread: 70, origin: { x: 0.5, y: 1 }});
+
+    if (Date.now() < end) requestAnimationFrame(frame);
+  })();
+}
+</script>
+
+</body>
+</html>
